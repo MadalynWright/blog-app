@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  	<meta charset="utf-8">
+	  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	  	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	    <title>TechTalentBlog</title>
+
+	    <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" %>
+	    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	    <%= javascript_include_tag "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" %>
+	    <%= csrf_meta_tags %>
+	</head>
+
+	<body>
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+			<% if user_signed_in? %>
+				<ul class="nav navbar-nav">
+					<li><%= link_to "Home", root_path %></li>
+					<li><%= link_to "Your Posts", your_posts_path %></li>
+					<li><%= link_to "New Blog Post", new_blog_post_path %></li>
+				
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.username %> <span class="caret"></span></a></li>
+					<ul class="dropdown-menu">
+						<li><%= link_to "Edit Profile", edit_user_registration_path %></li>			
+						<li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+					</ul>
+				</ul>
+			<% else %>	
+
+			<% end %>
+			</div>
+		</nav>
+		<div class="container">
+			<%= yield %>
+		</div>
+	    
+	</body>
+</html>

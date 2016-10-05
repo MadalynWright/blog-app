@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+<div class="panel-primary">
+    <div class="panel-heading">
+    <%= @blog_post.title %>
+    </div>
+    <div class="panel-body">
+        <p>By <%= link_to @blog_post.user.username, user_posts_path(id: @blog_post.user.id) %></p>
+        <p><%= @blog_post.blog_entry %></p>
+    </div>
+
+    <% if current_user.id == @blog_post.user.id %>
+    <div class="panel-footer">
+        <%= link_to 'Edit', edit_blog_post_path(@blog_post), class: "btn btn-warning" %>
+
+    </div>
+    <% end %>
+</div>
+<div class="panel panel-success">
+    <div class="panel-heading">
+        Write a Comment
+    </div>
+    <div class="panel-body">
+        <%= render 'comments/form' %>
+    </div>
+</div>
+
+<div class="panel panel-body">
+	<div class="panel-header">
+		<h4>Comments</h4>
+	</div>
+	<% @blog_post.comments.each do |comment| %>
+		<div class="panel-body">
+			<p><strong><%= link_to comment.user.username, user_posts_path(id: comment.user.id) %></strong> said: </p>
+			<p><%= comment.comment_entry %></p>
+            <% if current_user.id == comment.user.id %>
+			<%= link_to "Edit Comment", edit_blog_post_comment_path(@blog_post, comment) %> |
+			<%= link_to 'Destroy', [comment.blog_post, comment], method: :delete, data: { confirm: 'Are  you sure?' } %>
+            <% end %>
+		</div>
+	<% end %>
+</div>
+
+<%= link_to 'Back', blog_posts_path %>

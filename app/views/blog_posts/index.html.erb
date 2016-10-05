@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Blog Posts</h1>
+
+  <div class="row">
+    <% @blog_posts.each do |blog| %>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <%= link_to blog.title, blog %>      
+        </div>
+        <div class="panel-body">
+          By <%= link_to blog.user.username, user_posts_path(id: blog.user.id) %> on <%= blog.created_at.strftime('%m/%d/%Y at %I:%M%p') %><br>
+          <%= blog.blog_entry[0..250] %>...
+          <%= link_to "Read More", blog %>
+        </div>
+
+        <% if current_user.id == blog.user.id %>
+
+        <div class="panel-footer">
+
+          <%= link_to "Edit", edit_blog_post_path(blog), class: "btn btn-warning" %>
+          <%= link_to "Delete", blog, method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+        </div>
+
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
+<br>
+
+<%= link_to 'New Blog Post', new_blog_post_path %>
