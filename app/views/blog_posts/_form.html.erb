@@ -19,7 +19,7 @@
   <div class="form-group">
     <%= f.text_area :blog_entry, class: "form-control", placeholder: "Blog Post" %>
   </div>
-</form>
+
 
   <div class="cant-see-me">
     <%= f.number_field :user_id, value: current_user.id %>
@@ -28,4 +28,5 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+  </form>
 <% end %>
